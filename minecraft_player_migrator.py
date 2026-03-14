@@ -171,7 +171,7 @@ def file_uuid_and_ext(p: Path) -> Optional[Tuple[str, str]]:
         if low.endswith(ext):
             base = name[:-len(ext)]
             if is_uuid_like(base):
-                return normalize_uuid(base), ext
+                return normalize_uuid_to_write(base), ext
     return None
 
 
@@ -527,7 +527,7 @@ def backup_files(files: Iterable[Path], action: str) -> Optional[Path]:
 
 
 def collect_related_files_by_uuid(uuids: Iterable[str]) -> List[Path]:
-    target = {normalize_uuid(u) for u in uuids if is_uuid_like(u)}
+    target = {normalize_uuid_to_write(u) for u in uuids if is_uuid_like(u)}
     if not target:
         return []
 
